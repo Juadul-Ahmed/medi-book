@@ -1,36 +1,19 @@
 
-import { redirect } from "next/navigation";
-import { DashboardShell } from "@/components/layouts/dashboard-shell";
-import { adminNavigation } from "@/components/layouts/dashboard-navigation";
-import { getCurrentUser, requireRole } from "@/lib/server-auth";
+import { Suspense } from "react";
+import AdminDashboardContent from "./admin-dashboard-content";
 
-export default async function AdminLayout({
+export default function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await getCurrentUser();
-
-  if (!user) {
-    redirect("/login");
-  }
-
-  let admin;
-
-  try {
-    admin = await requireRole("ADMIN");
-  } catch {
-    redirect("/");
-  }
-
   return (
-    <DashboardShell
-      role="Admin"
-      name={admin.name || "Administrator"}
-      email={admin.email}
-      navigation={adminNavigation}
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#FAF9F6]" />
+      }
     >
-      {children}
-    </DashboardShell>
+      <AdminDashboardContent>{children}</AdminDashboardContent>
+    </Suspense>
   );
 }

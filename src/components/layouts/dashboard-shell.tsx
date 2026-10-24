@@ -1,11 +1,10 @@
-
 "use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setSidebarOpen } from "@/store/store";
-
+import { LogoutButton } from "@/components/layouts/logout-button";
 export type DashboardNavItem = {
   label: string;
   href: string;
@@ -133,7 +132,9 @@ export function DashboardShell({
 
           <div className="hidden max-w-xs flex-1 px-8 md:block">
             <label className="flex items-center gap-2 rounded-xl border border-stone-200 bg-stone-50 px-3 py-2">
-              <span aria-hidden="true" className="text-stone-400">⌕</span>
+              <span aria-hidden="true" className="text-stone-400">
+                ⌕
+              </span>
               <input
                 type="search"
                 placeholder="Search..."
@@ -147,12 +148,15 @@ export function DashboardShell({
             <span className="hidden max-w-40 truncate text-sm text-stone-600 sm:block">
               {email}
             </span>
+
             <div
               className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F9E7E8] text-sm font-bold text-[#B52D32]"
               aria-label={`${name}'s profile`}
             >
               {name.trim().charAt(0).toUpperCase() || role.charAt(0)}
             </div>
+
+            <LogoutButton />
           </div>
         </header>
 
