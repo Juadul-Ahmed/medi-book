@@ -1,6 +1,14 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@heroui/react";
 
 type AuthCardProps = {
   title: string;
@@ -17,30 +25,32 @@ export function AuthCard({
 }: AuthCardProps) {
   return (
     <main className="flex min-h-screen items-center justify-center bg-stone-50 px-4 py-10">
-      <section className="w-full max-w-md rounded-2xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
-        <Link
-          href="/"
-          className="text-sm font-bold tracking-wide text-rose-800"
-        >
-          MediBook
-        </Link>
+      <Card className="w-full max-w-md border border-stone-200 bg-white shadow-sm">
+        <CardHeader className="flex flex-col items-start gap-2 px-6 pt-7 sm:px-8">
+          <Link
+            href="/"
+            className="text-sm font-bold tracking-wide text-rose-800"
+          >
+            MediBook
+          </Link>
 
-        <header className="mt-6">
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+          <CardTitle className="mt-4 text-2xl font-bold tracking-tight text-gray-900">
             {title}
-          </h1>
+          </CardTitle>
 
-          <p className="mt-2 text-sm leading-6 text-gray-600">
+          <CardDescription className="text-sm leading-6 text-gray-600">
             {description}
-          </p>
-        </header>
+          </CardDescription>
+        </CardHeader>
 
-        <div className="mt-6">{children}</div>
+        <CardContent className="px-6 py-4 sm:px-8">
+          {children}
+        </CardContent>
 
-        <footer className="mt-6 text-center text-sm text-gray-600">
+        <CardFooter className="justify-center px-6 pb-7 text-center text-sm text-gray-600 sm:px-8">
           {footer}
-        </footer>
-      </section>
+        </CardFooter>
+      </Card>
     </main>
   );
 }

@@ -1,6 +1,7 @@
 
 import type { InputHTMLAttributes } from "react";
 import type { FieldError } from "react-hook-form";
+import { Input } from "@heroui/react";
 
 type FormFieldProps = {
   id: string;
@@ -15,15 +16,6 @@ export function FormField({
   className,
   ...inputProps
 }: FormFieldProps) {
-  const inputClassName = [
-    "mt-1 w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-gray-900 outline-none transition",
-    "focus:border-rose-700 focus:ring-2 focus:ring-rose-100",
-    error ? "border-red-500" : "border-gray-300",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
     <div className="space-y-1">
       <label
@@ -33,12 +25,12 @@ export function FormField({
         {label}
       </label>
 
-      <input
-        id={id}
+      <Input
         {...inputProps}
+        id={id}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={inputClassName}
+        className={["w-full", className].filter(Boolean).join(" ")}
       />
 
       {error?.message && (
