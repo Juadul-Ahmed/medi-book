@@ -11,8 +11,8 @@
   "dependencies": {
     "@heroui/react": "^3.2.6",
     "@heroui/styles": "^3.2.6",
+    "@hookform/resolvers": "^5.2.2",
     "@prisma/adapter-pg": "^7.10.1",
-    "@prisma/client": "^7.10.1",
     "@reduxjs/toolkit": "^2.13.0",
     "better-auth": "^1.7.12",
     "dotenv": "^18.0.9",
@@ -26,6 +26,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@prisma/client": "^7.10.1",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/pg": "^8.23.1",
