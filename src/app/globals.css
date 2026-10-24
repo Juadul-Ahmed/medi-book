@@ -1,8 +1,14 @@
-@import "tailwindcss";
+ @import "tailwindcss";
 @import "@heroui/styles";
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faf9f6;
+  --foreground: #292524;
+  --primary: #b52d32;
+  --primary-dark: #922329;
+  --surface: #ffffff;
+  --border: #e7e5e4;
+  --muted: #78716c;
 }
 
 @theme inline {
@@ -12,15 +18,27 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: #f4d7d8;
+  color: #641b1e;
 }
