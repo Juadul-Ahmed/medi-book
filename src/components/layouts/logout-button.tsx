@@ -36,14 +36,14 @@ export function LogoutButton() {
         type="button"
         onClick={handleLogout}
         disabled={loading}
-        className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#B52D32]/20 bg-white px-4 py-2.5 text-sm font-semibold text-[#B52D32] transition hover:bg-[#B52D32] hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#166534]/20 bg-white px-4 py-2.5 text-sm font-semibold text-[#166534] transition hover:bg-[#166534] hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
       >
         <span aria-hidden="true">↪</span>
         {loading ? "Logging out..." : "Log out"}
       </button>
 
       {error && (
-        <p role="alert" className="mt-2 text-xs text-red-600">
+        <p role="alert" className="mt-2 text-xs text-green-800">
           {error}
         </p>
       )}

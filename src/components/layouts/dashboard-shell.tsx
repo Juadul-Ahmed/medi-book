@@ -51,7 +51,7 @@ export function DashboardShell({
           className="flex h-20 items-center gap-3 border-b border-stone-100 px-6"
           onClick={() => dispatch(setSidebarOpen(false))}
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#B52D32] text-lg font-bold text-white">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#166534] text-lg font-bold text-white">
             M
           </span>
           <span>
@@ -83,7 +83,7 @@ export function DashboardShell({
                 onClick={() => dispatch(setSidebarOpen(false))}
                 className={`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition ${
                   active
-                    ? "bg-[#B52D32]/10 text-[#B52D32]"
+                    ? "bg-[#166534]/10 text-[#166534]"
                     : "text-stone-600 hover:bg-stone-100 hover:text-stone-900"
                 }`}
               >
@@ -98,7 +98,7 @@ export function DashboardShell({
 
         <div className="border-t border-stone-100 p-4">
           <div className="flex items-center gap-3 rounded-xl bg-stone-50 p-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#B52D32] font-semibold text-white">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#166534] font-semibold text-white">
               {name.trim().charAt(0).toUpperCase() || role.charAt(0)}
             </div>
             <div className="min-w-0">
@@ -150,7 +150,7 @@ export function DashboardShell({
             </span>
 
             <div
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F9E7E8] text-sm font-bold text-[#B52D32]"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F9E7E8] text-sm font-bold text-[#166534]"
               aria-label={`${name}'s profile`}
             >
               {name.trim().charAt(0).toUpperCase() || role.charAt(0)}

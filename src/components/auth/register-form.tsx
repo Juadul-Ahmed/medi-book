@@ -67,7 +67,7 @@ export function RegisterForm() {
           Already have an account?{" "}
           <Link
             href="/login"
-            className="font-semibold text-rose-800 hover:underline"
+            className="font-semibold text-green-800 hover:underline"
           >
             Sign in
           </Link>
@@ -135,7 +135,7 @@ export function RegisterForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-lg bg-rose-800 px-4 py-3 text-sm font-semibold text-white transition hover:bg-rose-900 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-lg bg-green-800 px-4 py-3 text-sm font-semibold text-white transition hover:bg-rose-900 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? "Creating account..." : "Create patient account"}
         </button>

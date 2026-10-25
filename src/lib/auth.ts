@@ -1,4 +1,3 @@
-
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
@@ -33,3 +32,6 @@ export const auth = betterAuth({
     },
   },
 });
+
+export type Session = typeof auth.$Infer.Session;
+export type AuthUser = typeof auth.$Infer.Session.user;

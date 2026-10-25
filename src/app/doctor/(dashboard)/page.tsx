@@ -26,7 +26,7 @@ export default function DoctorDashboardPage() {
   return (
     <div className="space-y-8">
       <header>
-        <p className="text-sm font-semibold tracking-wider text-[#B52D32]">
+        <p className="text-sm font-semibold tracking-wider text-[#166534]">
           DOCTOR WORKSPACE
         </p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-stone-900">
@@ -51,7 +51,7 @@ export default function DoctorDashboardPage() {
             </p>
             <Link
               href={section.href}
-              className="mt-6 inline-flex w-fit rounded-xl bg-[#B52D32] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#922329]"
+              className="mt-6 inline-flex w-fit rounded-xl bg-[#166534] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#14532d]"
             >
               {section.action}
             </Link>

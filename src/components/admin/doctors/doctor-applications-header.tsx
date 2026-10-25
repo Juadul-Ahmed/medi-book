@@ -11,7 +11,7 @@ export default function DoctorApplicationsHeader({
   return (
     <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
       <div>
-        <p className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#B52D32]">
+        <p className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#166534]">
           Administration
         </p>
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">

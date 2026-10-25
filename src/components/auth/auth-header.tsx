@@ -23,7 +23,7 @@ export function AuthHeader() {
 
   return (
     <header className="flex items-center justify-between border-b border-stone-200 bg-white px-5 py-4 sm:px-8">
-      <Link href="/" className="text-lg font-bold text-rose-800">
+      <Link href="/" className="text-lg font-bold text-green-800">
         MediBook
       </Link>
 
@@ -55,7 +55,7 @@ export function AuthHeader() {
 
             <Button
               onPress={() => router.push("/register")}
-              className="bg-rose-800 text-white"
+              className="bg-green-800 text-white"
             >
               Register
             </Button>

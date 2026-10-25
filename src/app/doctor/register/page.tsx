@@ -50,7 +50,7 @@ function TextField({
         maxLength={maxLength}
         min={min}
         step={step}
-        className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-[#B52D32] focus:ring-2 focus:ring-[#B52D32]/15"
+        className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-[#166534] focus:ring-2 focus:ring-[#166534]/15"
       />
     </label>
   );
@@ -80,7 +80,7 @@ function TextAreaField({
         placeholder={placeholder}
         maxLength={maxLength}
         rows={4}
-        className="w-full resize-y rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-[#B52D32] focus:ring-2 focus:ring-[#B52D32]/15"
+        className="w-full resize-y rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-[#166534] focus:ring-2 focus:ring-[#166534]/15"
       />
     </label>
   );
@@ -195,13 +195,13 @@ export default function DoctorRegisterPage() {
       <div className="mx-auto max-w-2xl">
         <Link
           href="/"
-          className="text-sm font-medium text-[#B52D32] hover:underline"
+          className="text-sm font-medium text-[#166534] hover:underline"
         >
           ← Back to MediBook
         </Link>
 
         <section className="mt-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-9">
-          <p className="text-sm font-semibold uppercase tracking-wider text-[#B52D32]">
+          <p className="text-sm font-semibold uppercase tracking-wider text-[#166534]">
             Join MediBook
           </p>
 
@@ -217,7 +217,7 @@ export default function DoctorRegisterPage() {
           {error && (
             <div
               role="alert"
-              className="mt-6 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700"
+              className="mt-6 rounded-lg border border-green-200 bg-red-50 p-3 text-sm text-red-700"
             >
               {error}
             </div>
@@ -274,7 +274,7 @@ export default function DoctorRegisterPage() {
                 onChange={(event) => setSpecialtyId(event.target.value)}
                 required
                 disabled={loadingSpecialties || specialties.length === 0}
-                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-[#B52D32] focus:ring-2 focus:ring-[#B52D32]/15 disabled:cursor-not-allowed disabled:bg-gray-100"
+                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-[#166534] focus:ring-2 focus:ring-[#166534]/15 disabled:cursor-not-allowed disabled:bg-gray-100"
               >
                 <option value="">
                   {loadingSpecialties
@@ -335,7 +335,7 @@ export default function DoctorRegisterPage() {
                 loadingSpecialties ||
                 specialties.length === 0
               }
-              className="w-full bg-[#B52D32] font-semibold text-white"
+              className="w-full bg-[#166534] font-semibold text-white"
             >
               {submitting ? "Submitting..." : "Submit registration"}
             </Button>
@@ -345,7 +345,7 @@ export default function DoctorRegisterPage() {
             Already registered?{" "}
             <Link
               href="/login"
-              className="font-semibold text-[#B52D32] hover:underline"
+              className="font-semibold text-[#166534] hover:underline"
             >
               Sign in
             </Link>

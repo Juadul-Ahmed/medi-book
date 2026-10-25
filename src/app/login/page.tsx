@@ -68,7 +68,7 @@ export default function LoginPage() {
           Don&apos;t have an account?{" "}
           <Link
             href="/register"
-            className="font-semibold text-rose-800 hover:underline"
+            className="font-semibold text-green-800 hover:underline"
           >
             Create a patient account
           </Link>
@@ -109,7 +109,7 @@ export default function LoginPage() {
           type="submit"
           fullWidth
           isDisabled={isSubmitting}
-          className="bg-rose-800 font-semibold text-white hover:bg-rose-900"
+          className="bg-green-800 font-semibold text-white hover:bg-rose-900"
         >
           {isSubmitting ? "Signing in..." : "Sign in"}
         </Button>

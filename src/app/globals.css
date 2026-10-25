@@ -1,20 +1,39 @@
- @import "tailwindcss";
+@import "tailwindcss";
 @import "@heroui/styles";
 
 :root {
-  --background: #faf9f6;
-  --foreground: #292524;
-  --primary: #b52d32;
-  --primary-dark: #922329;
+  --background: #f8faf8;
+  --foreground: #1c2921;
+
+  /* MediBook brand colors */
+  --primary: #166534;
+  --primary-dark: #14532d;
+  --primary-hover: #15803d;
+  --primary-light: #dcfce7;
+
+  /* UI colors */
   --surface: #ffffff;
-  --border: #e7e5e4;
-  --muted: #78716c;
+  --border: #e2e8e3;
+  --muted: #647067;
+
+  /* Additional healthcare accents */
+  --success: #15803d;
+  --success-light: #dcfce7;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+
+  --font-sans: var(--font-dm-sans);
+  --font-serif: var(--font-dm-serif);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -39,6 +58,6 @@ a {
 }
 
 ::selection {
-  background: #f4d7d8;
-  color: #641b1e;
+  background: #dcfce7;
+  color: #14532d;
 }

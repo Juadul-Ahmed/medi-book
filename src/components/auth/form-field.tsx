@@ -34,7 +34,7 @@ export function FormField({
       />
 
       {error?.message && (
-        <p id={`${id}-error`} className="text-sm text-red-600">
+        <p id={`${id}-error`} className="text-sm text-green-800">
           {error.message}
         </p>
       )}

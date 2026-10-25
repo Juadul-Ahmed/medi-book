@@ -28,7 +28,7 @@ export default function DoctorApplicationCard({
             </span>
           </div>
           <p className="mt-1 text-sm text-gray-500">{doctor.user.email}</p>
-          <p className="mt-3 text-sm font-medium text-[#B52D32]">
+          <p className="mt-3 text-sm font-medium text-[#166534]">
             {doctor.specialty.name}
           </p>
         </div>
@@ -65,7 +65,7 @@ export default function DoctorApplicationCard({
           type="button"
           onClick={() => onReview(doctor.id, "REJECTED")}
           disabled={processing}
-          className="rounded-xl border border-red-200 px-5 py-3 text-sm font-semibold text-[#B52D32] hover:bg-red-50 disabled:opacity-50"
+          className="rounded-xl border border-green-200 px-5 py-3 text-sm font-semibold text-[#166534] hover:bg-red-50 disabled:opacity-50"
         >
           Reject
         </button>
@@ -74,7 +74,7 @@ export default function DoctorApplicationCard({
           type="button"
           onClick={() => onReview(doctor.id, "APPROVED")}
           disabled={processing}
-          className="rounded-xl bg-[#B52D32] px-5 py-3 text-sm font-semibold text-white hover:bg-[#942329] disabled:opacity-50"
+          className="rounded-xl bg-[#166534] px-5 py-3 text-sm font-semibold text-white hover:bg-[#942329] disabled:opacity-50"
         >
           Approve doctor
         </button>

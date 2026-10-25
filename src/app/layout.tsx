@@ -1,24 +1,30 @@
+
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { DM_Sans, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dmSerif = DM_Serif_Display({
+  variable: "--font-dm-serif",
   subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "MediBook",
+    default: "MediBook — Healthcare, considered",
     template: "%s | MediBook",
   },
   description:
-    "MediBook makes it easier to manage medical appointments and healthcare services.",
+    "Find the right doctor, explore medical specialties, and manage your appointments with MediBook.",
 };
 
 export default function RootLayout({
@@ -29,7 +35,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${dmSans.variable} ${dmSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full">
         <Providers>{children}</Providers>

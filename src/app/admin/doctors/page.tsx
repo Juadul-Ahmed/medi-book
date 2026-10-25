@@ -100,7 +100,7 @@ export default function AdminDoctorsPage() {
           </div>
           <div className="rounded-2xl border bg-white p-5 shadow-sm">
             <p className="text-sm text-gray-500">Review status</p>
-            <p className="mt-2 text-lg font-semibold text-[#B52D32]">Awaiting review</p>
+            <p className="mt-2 text-lg font-semibold text-[#166534]">Awaiting review</p>
           </div>
         </section>
 

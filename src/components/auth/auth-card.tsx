@@ -29,7 +29,7 @@ export function AuthCard({
         <CardHeader className="flex flex-col items-start gap-2 px-6 pt-7 sm:px-8">
           <Link
             href="/"
-            className="text-sm font-bold tracking-wide text-rose-800"
+            className="text-sm font-bold tracking-wide text-green-800"
           >
             MediBook
           </Link>
