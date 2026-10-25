@@ -9,10 +9,8 @@ export function NavbarWrapper() {
   const isDashboard =
     pathname === "/admin" ||
     pathname.startsWith("/admin/") ||
-    pathname === "/doctor/dashboard" ||
-    pathname.startsWith("/doctor/dashboard/") ||
-    pathname === "/patient/dashboard" ||
-    pathname.startsWith("/patient/dashboard/");
+    pathname === "/doctor" ||
+    pathname.startsWith("/doctor/");
 
   if (isDashboard) {
     return null;

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -9,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@heroui/react";
 
-import { signIn } from "@/lib/auth-client";
+import { authClient, signIn } from "@/lib/auth-client";
 import { AuthCard } from "@/components/auth/auth-card";
 import { FormField } from "@/components/auth/form-field";
 
@@ -52,7 +51,37 @@ export default function LoginPage() {
         return;
       }
 
-      router.replace("/");
+      const sessionResult = await authClient.getSession();
+
+      if (sessionResult.error || !sessionResult.data?.user) {
+        setServerError(
+          "You signed in, but we couldn't load your account. Please try again.",
+        );
+        return;
+      }
+
+      const role = sessionResult.data.user.role;
+
+      let destination: string;
+
+      switch (role) {
+        case "ADMIN":
+          destination = "/admin";
+          break;
+        case "DOCTOR":
+          destination = "/doctor";
+          break;
+        case "PATIENT":
+          destination = "/doctors";
+          break;
+        default:
+          setServerError(
+            "Your account role is not recognized. Please contact support.",
+          );
+          return;
+      }
+
+      router.replace(destination);
       router.refresh();
     } catch {
       setServerError("Something went wrong. Please try again.");
