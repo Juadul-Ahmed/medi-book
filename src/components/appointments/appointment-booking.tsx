@@ -215,7 +215,7 @@ export function AppointmentBooking({
           className="mt-4 rounded-xl border border-green-200 bg-green-50 p-4"
         >
           <p className="font-semibold text-green-900">
-            Appointment confirmed!
+            Appointment request submitted!
           </p>
 
           <p className="mt-1 text-sm text-green-800">

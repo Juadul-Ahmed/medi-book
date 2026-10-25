@@ -1,7 +1,12 @@
-
 "use client";
 
 import { useState } from "react";
+
+export type AppointmentAction =
+  | "CONFIRMED"
+  | "REJECTED"
+  | "COMPLETED"
+  | "NO_SHOW";
 
 export type DoctorAppointment = {
   id: string;
@@ -21,12 +26,14 @@ type Props = {
   updatingId: string | null;
   onUpdateStatus: (
     appointmentId: string,
-    status: "COMPLETED" | "NO_SHOW",
+    status: AppointmentAction,
   ) => void;
 };
 
 const statusStyles: Record<string, string> = {
+  PENDING: "bg-amber-50 text-amber-800",
   CONFIRMED: "bg-green-50 text-green-700",
+  REJECTED: "bg-red-50 text-red-700",
   COMPLETED: "bg-blue-50 text-blue-700",
   CANCELLED: "bg-stone-100 text-stone-600",
   NO_SHOW: "bg-red-50 text-red-700",
@@ -65,12 +72,10 @@ export function AppointmentList({
   return (
     <div className="grid gap-4 lg:grid-cols-2">
       {appointments.map((appointment) => {
-        const ended =
-          new Date(appointment.endAt).getTime() <= now;
-
-        const canUpdate =
+        const ended = new Date(appointment.endAt).getTime() <= now;
+        const pending = appointment.status === "PENDING";
+        const canComplete =
           appointment.status === "CONFIRMED" && ended;
-
         const updating = updatingId === appointment.id;
 
         return (
@@ -118,7 +123,39 @@ export function AppointmentList({
               )}
             </div>
 
-            {canUpdate && (
+            {pending && (
+              <div className="border-t border-stone-100 pt-4">
+                <p className="mb-3 text-sm text-amber-800">
+                  This appointment is waiting for your decision.
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    disabled={updating}
+                    onClick={() =>
+                      onUpdateStatus(appointment.id, "CONFIRMED")
+                    }
+                    className="rounded-lg bg-green-800 px-4 py-2 text-sm font-semibold text-white hover:bg-green-900 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {updating ? "Updating..." : "Confirm"}
+                  </button>
+
+                  <button
+                    type="button"
+                    disabled={updating}
+                    onClick={() =>
+                      onUpdateStatus(appointment.id, "REJECTED")
+                    }
+                    className="rounded-lg border border-red-200 px-4 py-2 text-sm font-semibold text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {updating ? "Updating..." : "Reject"}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {canComplete && (
               <div className="flex flex-wrap gap-2 border-t border-stone-100 pt-4">
                 <button
                   type="button"

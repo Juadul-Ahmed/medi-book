@@ -1,9 +1,9 @@
-
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   AppointmentList,
+  type AppointmentAction,
   type DoctorAppointment,
 } from "@/components/doctors/appointments/appointment-list";
 import {
@@ -66,16 +66,13 @@ export function AppointmentsManager() {
         | ApiErrorResponse;
 
       if (!response.ok) {
-        throw new Error(
-          getErrorMessage(data, "Failed to load appointments."),
-        );
+        throw new Error(getErrorMessage(data, "Failed to load appointments."));
       }
 
-      if (
-        !("appointments" in data) ||
-        !Array.isArray(data.appointments)
-      ) {
-        throw new Error("The server returned an invalid appointments response.");
+      if (!("appointments" in data) || !Array.isArray(data.appointments)) {
+        throw new Error(
+          "The server returned an invalid appointments response.",
+        );
       }
 
       setAppointments(data.appointments);
@@ -109,16 +106,11 @@ export function AppointmentsManager() {
         (appointment.patient.name ?? "")
           .toLowerCase()
           .includes(normalizedSearch) ||
-        appointment.patient.email
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        (appointment.reason ?? "")
-          .toLowerCase()
-          .includes(normalizedSearch);
+        appointment.patient.email.toLowerCase().includes(normalizedSearch) ||
+        (appointment.reason ?? "").toLowerCase().includes(normalizedSearch);
 
       const matchesStatus =
-        statusFilter === "ALL" ||
-        appointment.status === statusFilter;
+        statusFilter === "ALL" || appointment.status === statusFilter;
 
       return matchesSearch && matchesStatus;
     });
@@ -126,7 +118,7 @@ export function AppointmentsManager() {
 
   const handleUpdateStatus = async (
     appointmentId: string,
-    status: "COMPLETED" | "NO_SHOW",
+    status: AppointmentAction,
   ) => {
     try {
       setUpdatingId(appointmentId);
@@ -248,9 +240,7 @@ export function AppointmentsManager() {
 
         <div className="rounded-2xl border border-stone-200 bg-white p-5">
           <p className="text-sm text-stone-500">No-show</p>
-          <p className="mt-2 text-3xl font-bold text-red-700">
-            {noShowCount}
-          </p>
+          <p className="mt-2 text-3xl font-bold text-red-700">{noShowCount}</p>
         </div>
       </div>
 

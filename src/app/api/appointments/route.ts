@@ -1,9 +1,5 @@
-
 import { NextResponse } from "next/server";
-import {
-  formatInTimeZone,
-  fromZonedTime,
-} from "date-fns-tz";
+import { formatInTimeZone, fromZonedTime } from "date-fns-tz";
 import { z } from "zod";
 
 import { prisma } from "@/lib/prisma";
@@ -28,20 +24,13 @@ const bookingSchema = z.object({
   startAt: z.string().refine((value) => {
     const date = new Date(value);
 
-    return (
-      Number.isFinite(date.getTime()) &&
-      date.toISOString() === value
-    );
+    return Number.isFinite(date.getTime()) && date.toISOString() === value;
   }, "Select a valid appointment time."),
   reason: z.string().trim().max(1000).optional(),
 });
 
 function getPrismaErrorCode(error: unknown): string | undefined {
-  if (
-    typeof error !== "object" ||
-    error === null ||
-    !("code" in error)
-  ) {
+  if (typeof error !== "object" || error === null || !("code" in error)) {
     return undefined;
   }
 
@@ -85,11 +74,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const {
-      doctorId,
-      startAt: startAtString,
-      reason,
-    } = parsed.data;
+    const { doctorId, startAt: startAtString, reason } = parsed.data;
 
     const requestedStart = new Date(startAtString);
 
@@ -132,37 +117,30 @@ export async function POST(request: Request) {
         // Calculate the exact start and end of that local calendar day.
         const nextDate = getNextCalendarDate(appointmentDate);
 
-        const dayStart = fromZonedTime(
-          `${appointmentDate}T00:00:00`,
-          timezone,
-        );
+        const dayStart = fromZonedTime(`${appointmentDate}T00:00:00`, timezone);
 
-        const dayEnd = fromZonedTime(
-          `${nextDate}T00:00:00`,
-          timezone,
-        );
+        const dayEnd = fromZonedTime(`${nextDate}T00:00:00`, timezone);
 
         // RULE: One non-cancelled appointment per patient per day.
         // This check applies across all doctors, using the selected
         // doctor's time zone to define the calendar day.
-        const existingPatientAppointment =
-          await tx.appointment.findFirst({
-            where: {
-              patientId: patient.id,
-              status: {
-                not: "CANCELLED",
-              },
-              startAt: {
-                gte: dayStart,
-                lt: dayEnd,
-              },
+        const existingPatientAppointment = await tx.appointment.findFirst({
+          where: {
+            patientId: patient.id,
+            status: {
+              not: "CANCELLED",
             },
-            select: {
-              id: true,
-              startAt: true,
-              status: true,
+            startAt: {
+              gte: dayStart,
+              lt: dayEnd,
             },
-          });
+          },
+          select: {
+            id: true,
+            startAt: true,
+            status: true,
+          },
+        });
 
         if (existingPatientAppointment) {
           throw new BookingError(
@@ -193,10 +171,7 @@ export async function POST(request: Request) {
         const endAt = new Date(selectedSlot.endAt);
 
         // The server determines the appointment duration.
-        if (
-          endAt.getTime() - startAt.getTime() !==
-          30 * 60 * 1000
-        ) {
+        if (endAt.getTime() - startAt.getTime() !== 30 * 60 * 1000) {
           throw new BookingError(
             "The selected slot is invalid. Please choose another time.",
             409,
@@ -210,7 +185,7 @@ export async function POST(request: Request) {
             doctorId: doctor.id,
             startAt,
             endAt,
-            status: "CONFIRMED",
+            status: "PENDING",
             reason: reason || null,
           },
           select: {
@@ -234,16 +209,16 @@ export async function POST(request: Request) {
             {
               userId: patient.id,
               appointmentId: created.id,
-              type: "APPOINTMENT_CONFIRMED",
-              title: "Appointment confirmed",
-              message: `Your appointment with Dr. ${doctor.user.name} is confirmed for ${localDateTime}.`,
+              type: "GENERAL",
+              title: "Appointment request submitted",
+              message: `Your appointment request with Dr. ${doctor.user.name} for ${localDateTime} is waiting for the doctor's confirmation.`,
             },
             {
               userId: doctor.userId,
               appointmentId: created.id,
-              type: "APPOINTMENT_CONFIRMED",
-              title: "New appointment booked",
-              message: `${patient.name} booked an appointment for ${localDateTime}.`,
+              type: "GENERAL",
+              title: "New appointment request",
+              message: `${patient.name} requested an appointment for ${localDateTime}. Please review the request.`,
             },
           ],
         });

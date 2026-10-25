@@ -1,9 +1,10 @@
-
 "use client";
 
 export type AppointmentStatusFilter =
   | "ALL"
+  | "PENDING"
   | "CONFIRMED"
+  | "REJECTED"
   | "COMPLETED"
   | "CANCELLED"
   | "NO_SHOW";
@@ -54,7 +55,9 @@ export function AppointmentFilter({
           className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm outline-none focus:border-green-800 sm:w-48"
         >
           <option value="ALL">All statuses</option>
+          <option value="PENDING">Pending approval</option>
           <option value="CONFIRMED">Confirmed</option>
+          <option value="REJECTED">Rejected</option>
           <option value="COMPLETED">Completed</option>
           <option value="CANCELLED">Cancelled</option>
           <option value="NO_SHOW">No-show</option>

@@ -193,7 +193,7 @@ export async function getAvailableSlots(
     where: {
       doctorId: doctor.id,
       status: {
-        not: "CANCELLED",
+         notIn: ["CANCELLED", "REJECTED"],
       },
       startAt: {
         lt: dayEnd,
