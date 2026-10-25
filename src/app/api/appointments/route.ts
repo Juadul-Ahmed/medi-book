@@ -296,3 +296,62 @@ export async function POST(request: Request) {
     );
   }
 }
+
+
+export async function GET() {
+  try {
+    const patient = await requireRole("PATIENT");
+
+    const appointments = await prisma.appointment.findMany({
+      where: {
+        patientId: patient.id,
+      },
+      orderBy: [
+        { startAt: "desc" },
+        { id: "asc" },
+      ],
+      select: {
+        id: true,
+        doctorId: true,
+        startAt: true,
+        endAt: true,
+        status: true,
+        reason: true,
+        cancelledAt: true,
+        createdAt: true,
+        doctor: {
+          select: {
+            timezone: true,
+            user: {
+              select: {
+                name: true,
+              },
+            },
+            specialty: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return NextResponse.json({ appointments });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status },
+      );
+    }
+
+    console.error("Load patient appointments error:", error);
+
+    return NextResponse.json(
+      { error: "Could not load your appointments." },
+      { status: 500 },
+    );
+  }
+}
+

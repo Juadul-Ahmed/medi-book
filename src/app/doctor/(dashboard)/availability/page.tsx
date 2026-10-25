@@ -1,4 +1,3 @@
-export const instant = false;
 
 import { AvailabilityEditor } from "@/components/doctors/availability/availability-editor";
 
