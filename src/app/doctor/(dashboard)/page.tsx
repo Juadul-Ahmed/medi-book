@@ -1,11 +1,10 @@
 export const instant = false;
+
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { requireApprovedDoctor } from "@/lib/server-auth";
 
 export default async function DoctorDashboardPage() {
-
-
   const doctor = await requireApprovedDoctor();
   const doctorId = doctor.doctorProfile.id;
   const now = new Date();
@@ -18,12 +17,14 @@ export default async function DoctorDashboardPage() {
         startAt: { gte: now },
       },
     }),
+
     prisma.appointment.count({
       where: {
         doctorId,
         status: "COMPLETED",
       },
     }),
+
     prisma.appointment.findMany({
       where: {
         doctorId,
@@ -131,6 +132,7 @@ function Stat({
   return (
     <article className="rounded-2xl border border-stone-200 bg-white p-6">
       <p className="text-sm text-stone-500">{title}</p>
+
       <p className="mt-3 text-3xl font-bold text-stone-900">
         {value}
       </p>

@@ -4,7 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Button } from "@heroui/react";
 import { DoctorProfilePhoto } from "@/components/doctors/doctor-profile-photo";
 import { FormField, TextAreaField } from "@/components/ui/form-fields";
-
+import { ProfilePageSkeleton } from "@/components/ui/loading-skeleton";
 type Specialty = { id: string; name: string };
 
 type Profile = {
@@ -114,7 +114,7 @@ export default function DoctorProfilePage() {
     }
   }
 
-  if (loading) return <p>Loading profile...</p>;
+  if (loading) return <ProfilePageSkeleton />;
   if (!profile) return <p role="alert">{error || "Profile not found."}</p>;
 
   const status = profile.approved
