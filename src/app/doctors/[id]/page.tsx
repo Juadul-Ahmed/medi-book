@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button, Card, Chip } from "@heroui/react";
 import { prisma } from "@/lib/prisma";
+import Image from "next/image";
 
 export const instant = false;
 
@@ -47,9 +48,11 @@ export default async function DoctorProfilePage({ params }: Props) {
           <Card.Content className="gap-8 p-6 sm:p-10">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
               {doctor.user.image ? (
-                <img
-                  src={doctor.user.image}
+                <Image
+                  src={doctor.user.image || "/images/default-doctor.png"}
                   alt={`Dr. ${doctor.user.name}`}
+                  width={96}
+                  height={96}
                   className="h-24 w-24 rounded-2xl object-cover"
                 />
               ) : (

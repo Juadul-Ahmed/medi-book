@@ -22,3 +22,15 @@ export const doctorRegistrationSchema = z.object({
 export type DoctorRegistrationValues = z.infer<
   typeof doctorRegistrationSchema
 >;
+
+export const doctorProfileUpdateSchema = z.object({
+  name: z.string().trim().min(2).max(100),
+  specialtyId: z.string().min(1, "Select a specialty."),
+  bio: z.string().trim().max(2000),
+  consultationFee: z.coerce.number().positive().finite(),
+  timezone: z.string().trim().min(1).max(100),
+});
+
+export type DoctorProfileUpdateValues = z.infer<
+  typeof doctorProfileUpdateSchema
+>;
