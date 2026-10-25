@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { DoctorDirectory } from "@/components/doctors/doctor-directory";
@@ -7,8 +8,6 @@ export const metadata = {
   description:
     "Find approved doctors, explore medical specialties, and compare consultation fees on MediBook.",
 };
-
-export const instant = false;
 
 type DoctorsPageProps = {
   searchParams: Promise<{
@@ -22,7 +21,7 @@ type DoctorsPageProps = {
 
 const PAGE_SIZE = 9;
 
-function parseFee(value?: string) {
+function parseFee(value?: string): number | undefined {
   if (!value || !/^\d{1,8}(\.\d{1,2})?$/.test(value)) {
     return undefined;
   }
@@ -34,8 +33,10 @@ function parseFee(value?: string) {
     : undefined;
 }
 
-function parsePage(value?: string) {
-  if (!value || !/^\d+$/.test(value)) return 1;
+function parsePage(value?: string): number {
+  if (!value || !/^\d+$/.test(value)) {
+    return 1;
+  }
 
   const page = Number(value);
 
@@ -61,6 +62,7 @@ export default async function DoctorsPage({
   const doctorWhere = {
     approved: true,
     reviewStatus: "APPROVED" as const,
+
     ...(query
       ? {
           user: {
@@ -71,7 +73,9 @@ export default async function DoctorsPage({
           },
         }
       : {}),
+
     ...(specialtyId ? { specialtyId } : {}),
+
     ...(validFeeRange && (minFee !== undefined || maxFee !== undefined)
       ? {
           consultationFee: {
@@ -84,12 +88,15 @@ export default async function DoctorsPage({
 
   const [specialties, matchingCount] = await Promise.all([
     prisma.specialty.findMany({
-      orderBy: { name: "asc" },
+      orderBy: {
+        name: "asc",
+      },
       select: {
         id: true,
         name: true,
       },
     }),
+
     prisma.doctorProfile.count({
       where: doctorWhere,
     }),
@@ -122,8 +129,14 @@ export default async function DoctorsPage({
       },
     },
     orderBy: [
-      { user: { name: "asc" } },
-      { id: "asc" },
+      {
+        user: {
+          name: "asc",
+        },
+      },
+      {
+        id: "asc",
+      },
     ],
     skip: (currentPage - 1) * PAGE_SIZE,
     take: PAGE_SIZE,
@@ -143,10 +156,21 @@ export default async function DoctorsPage({
   function pageHref(page: number) {
     const search = new URLSearchParams();
 
-    if (query) search.set("q", query);
-    if (specialtyId) search.set("specialty", specialtyId);
-    if (params.minFee) search.set("minFee", params.minFee);
-    if (params.maxFee) search.set("maxFee", params.maxFee);
+    if (query) {
+      search.set("q", query);
+    }
+
+    if (specialtyId) {
+      search.set("specialty", specialtyId);
+    }
+
+    if (params.minFee) {
+      search.set("minFee", params.minFee);
+    }
+
+    if (params.maxFee) {
+      search.set("maxFee", params.maxFee);
+    }
 
     search.set("page", String(page));
 

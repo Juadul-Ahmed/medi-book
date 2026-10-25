@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -65,8 +64,8 @@ export function HomeHero() {
             {...entrance(0.23)}
             className="mt-7 max-w-md text-base leading-7 text-[#5F6E61] sm:text-lg sm:leading-8"
           >
-            Find the right doctor, explore available appointments,
-            and manage your care in one place.
+            Find the right doctor, explore available appointments, and manage
+            your care in one place.
           </motion.p>
 
           <motion.div
@@ -124,11 +123,7 @@ export function HomeHero() {
 
         {/* Quiet photographic panel */}
         <motion.div
-          initial={
-            reduceMotion
-              ? false
-              : { opacity: 0, scale: 1.035 }
-          }
+          initial={reduceMotion ? false : { opacity: 0, scale: 1.035 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
             duration: reduceMotion ? 0 : 1.1,
@@ -137,14 +132,14 @@ export function HomeHero() {
           }}
           className="relative min-h-[340px] overflow-hidden bg-[#DDE6DA] sm:min-h-[440px] lg:min-h-full"
         >
-          <Image
-            src="/images/hero1.jpg"
-            alt="A calm, welcoming healthcare environment"
-            fill
-            priority
-            sizes="(max-width: 1024px) 100vw, 48vw"
-            className="object-cover object-center"
-          />
+          <div>
+            <Image
+              src="/images/hero1.jpg"
+              alt="MediBook"
+              fill
+              className="object-cover"
+            />
+          </div>
 
           <div
             aria-hidden="true"
