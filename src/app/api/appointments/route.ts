@@ -178,7 +178,7 @@ export async function POST(request: Request) {
           );
         }
 
-        // Successful appointments are confirmed immediately.
+        // New appointment requests wait for the doctor to confirm or reject them.
         const created = await tx.appointment.create({
           data: {
             patientId: patient.id,
@@ -209,7 +209,7 @@ export async function POST(request: Request) {
             {
               userId: patient.id,
               appointmentId: created.id,
-              type: "GENERAL",
+              type: "APPOINTMENT_REMINDER",
               title: "Appointment request submitted",
               message: `Your appointment request with Dr. ${doctor.user.name} for ${localDateTime} is waiting for the doctor's confirmation.`,
             },
@@ -251,7 +251,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       {
-        message: "Appointment booked and confirmed successfully.",
+        message: "Appointment request submitted successfully. Waiting for doctor confirmation.",
         appointment,
       },
       { status: 201 },

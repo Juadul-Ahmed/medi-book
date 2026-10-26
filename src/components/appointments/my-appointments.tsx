@@ -417,7 +417,7 @@ export function MyAppointments() {
             })}
           </div>
         )}
-      </div>
+      </div> 
     </main>
   );
 }

@@ -171,7 +171,7 @@ export async function PATCH(request: Request) {
               appointmentId: appointment.id,
               type: confirmed
                 ? "APPOINTMENT_CONFIRMED"
-                : "GENERAL",
+                : "APPOINTMENT_REJECTED",
               title: confirmed
                 ? "Appointment confirmed"
                 : "Appointment request rejected",

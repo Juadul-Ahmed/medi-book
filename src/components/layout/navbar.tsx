@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@heroui/react";
 import { signOut, useSession } from "@/lib/auth-client";
-
+import { NotificationBell } from "@/components/notifications/notification-bell";
 const publicNavigation = [
   { label: "Home", href: "/" },
   { label: "Find Doctors", href: "/doctors" },
@@ -97,6 +97,8 @@ export function Navbar() {
             />
           ) : user ? (
             <>
+              <NotificationBell role={role} />
+
               <span className="hidden max-w-32 truncate text-sm font-medium text-[#1C2921] lg:inline">
                 {user.name}
               </span>
@@ -130,7 +132,6 @@ export function Navbar() {
         </div>
       </nav>
 
-      
       {/* Mobile navigation */}
       <div className="flex gap-2 overflow-x-auto border-t border-[#E2E8E3] bg-[#F8FAF8] px-5 py-2 md:hidden">
         {navigation.map((item) => (

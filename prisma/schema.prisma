@@ -24,7 +24,9 @@ enum AppointmentStatus {
 }
 
 enum NotificationType {
+  APPOINTMENT_REQUESTED
   APPOINTMENT_CONFIRMED
+  APPOINTMENT_REJECTED
   APPOINTMENT_CANCELLED
   APPOINTMENT_REMINDER
   DOCTOR_APPROVED
@@ -40,13 +42,11 @@ enum AuditAction {
   APPOINTMENT_UPDATED
 }
 
-
 enum DoctorReviewStatus {
   PENDING
   APPROVED
   REJECTED
 }
-
 
 model User {
   id            String   @id
@@ -57,12 +57,12 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  sessions             Session[]
-  accounts             Account[]
-  role                 UserRole          @default(PATIENT)
-  doctorProfile        DoctorProfile?
-  patientAppointments  Appointment[]      @relation("PatientAppointments")
-  notifications        Notification[]
+  sessions            Session[]
+  accounts            Account[]
+  role                UserRole       @default(PATIENT)
+  doctorProfile       DoctorProfile?
+  patientAppointments Appointment[]  @relation("PatientAppointments")
+  notifications       Notification[]
 
   @@map("user")
 }
@@ -116,21 +116,20 @@ model Verification {
   @@map("verification")
 }
 
-
 model DoctorProfile {
-  id              String            @id @default(cuid())
-  userId          String            @unique
+  id              String             @id @default(cuid())
+  userId          String             @unique
   specialtyId     String
-  licenseNumber   String            @unique
+  licenseNumber   String             @unique
   bio             String?
-  consultationFee Decimal           @db.Decimal(10, 2)
-  timezone        String            @default("UTC")
-  approved        Boolean           @default(false)
+  consultationFee Decimal            @db.Decimal(10, 2)
+  timezone        String             @default("UTC")
+  approved        Boolean            @default(false)
   reviewStatus    DoctorReviewStatus @default(PENDING)
   approvedAt      DateTime?
   approvedById    String?
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
 
   user              User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
   specialty         Specialty               @relation(fields: [specialtyId], references: [id])
@@ -141,7 +140,6 @@ model DoctorProfile {
   @@index([specialtyId])
   @@index([reviewStatus])
 }
-
 
 model Specialty {
   id          String   @id @default(cuid())
