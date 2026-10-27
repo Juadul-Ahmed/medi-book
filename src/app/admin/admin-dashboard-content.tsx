@@ -19,8 +19,9 @@ export default async function AdminDashboardContent({
 
   try {
     admin = await requireRole("ADMIN");
-  } catch {
-    redirect("/");
+  } catch (error) {
+    console.error("Admin authorization failed:", error);
+    throw error;
   }
 
   return (

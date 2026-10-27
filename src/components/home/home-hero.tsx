@@ -94,10 +94,10 @@ export function HomeHero() {
               </Link>
             ) : (
               <Link
-                href="/register"
-                className="text-sm font-semibold text-[#315A3C] underline decoration-[#B4C6B4] underline-offset-4 transition-colors hover:text-[#193B29]"
+                href="/doctor/register"
+                className="group inline-flex min-h-14 items-center justify-center gap-5 rounded-lg bg-[#141515] px-6 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#14532D] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#166534]"
               >
-                Create an account
+                Register as a Doctor
               </Link>
             )}
           </motion.div>

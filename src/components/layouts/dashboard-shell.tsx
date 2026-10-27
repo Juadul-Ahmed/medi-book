@@ -1,14 +1,28 @@
+
 "use client";
 
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  FiHome,
+  FiCheckCircle,
+  FiCalendar,
+  FiUsers,
+  FiClock,
+  FiUser,
+  FiMenu,
+  FiSearch,
+} from "react-icons/fi";
+
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setSidebarOpen } from "@/store/store";
 import { LogoutButton } from "@/components/layouts/logout-button";
+
 export type DashboardNavItem = {
   label: string;
   href: string;
-  icon: string;
+  icon: "home" | "check-circle" | "calendar" | "users" | "clock" | "user";
 };
 
 type DashboardShellProps = {
@@ -16,8 +30,17 @@ type DashboardShellProps = {
   name: string;
   email: string;
   navigation: DashboardNavItem[];
-  children: React.ReactNode;
+  children: ReactNode;
 };
+
+const navigationIcons = {
+  home: FiHome,
+  "check-circle": FiCheckCircle,
+  calendar: FiCalendar,
+  users: FiUsers,
+  clock: FiClock,
+  user: FiUser,
+} as const;
 
 export function DashboardShell({
   role,
@@ -54,6 +77,7 @@ export function DashboardShell({
           <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#166534] text-lg font-bold text-white">
             M
           </span>
+
           <span>
             <span className="block text-lg font-bold tracking-tight">
               MediBook
@@ -68,7 +92,10 @@ export function DashboardShell({
           </p>
         </div>
 
-        <nav className="flex-1 space-y-1 overflow-y-auto px-3">
+        <nav
+          aria-label="Dashboard navigation"
+          className="flex-1 space-y-1 overflow-y-auto px-3"
+        >
           {navigation.map((item) => {
             const active =
               pathname === item.href ||
@@ -76,10 +103,13 @@ export function DashboardShell({
                 item.href !== "/doctor" &&
                 pathname.startsWith(`${item.href}/`));
 
+            const Icon = navigationIcons[item.icon];
+
             return (
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={active ? "page" : undefined}
                 onClick={() => dispatch(setSidebarOpen(false))}
                 className={`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition ${
                   active
@@ -87,10 +117,11 @@ export function DashboardShell({
                     : "text-stone-600 hover:bg-stone-100 hover:text-stone-900"
                 }`}
               >
-                <span className="w-6 text-center text-base" aria-hidden="true">
-                  {item.icon}
+                <span className="flex w-6 shrink-0 items-center justify-center">
+                  <Icon size={19} aria-hidden="true" />
                 </span>
-                {item.label}
+
+                <span>{item.label}</span>
               </Link>
             );
           })}
@@ -101,6 +132,7 @@ export function DashboardShell({
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#166534] font-semibold text-white">
               {name.trim().charAt(0).toUpperCase() || role.charAt(0)}
             </div>
+
             <div className="min-w-0">
               <p className="truncate text-sm font-semibold">{name}</p>
               <p className="truncate text-xs text-stone-500">{role}</p>
@@ -115,11 +147,12 @@ export function DashboardShell({
             <button
               type="button"
               aria-label="Open navigation"
-              className="rounded-lg border border-stone-200 px-3 py-2 text-sm hover:bg-stone-50 lg:hidden"
+              className="rounded-lg border border-stone-200 p-2 hover:bg-stone-50 lg:hidden"
               onClick={() => dispatch(setSidebarOpen(true))}
             >
-              ☰
+              <FiMenu size={20} aria-hidden="true" />
             </button>
+
             <div>
               <p className="text-sm font-semibold text-stone-800">
                 {role} dashboard
@@ -132,9 +165,12 @@ export function DashboardShell({
 
           <div className="hidden max-w-xs flex-1 px-8 md:block">
             <label className="flex items-center gap-2 rounded-xl border border-stone-200 bg-stone-50 px-3 py-2">
-              <span aria-hidden="true" className="text-stone-400">
-                ⌕
-              </span>
+              <FiSearch
+                size={16}
+                aria-hidden="true"
+                className="shrink-0 text-stone-400"
+              />
+
               <input
                 type="search"
                 placeholder="Search..."

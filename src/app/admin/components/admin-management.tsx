@@ -34,7 +34,7 @@ const sections: {
   {
     title: "Patients",
     description: "Access patient management tools.",
-    href: "/admin/patients",
+    href: "/admin/users",
     action: "Manage patients",
     icon: FiUsers,
   },

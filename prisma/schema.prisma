@@ -40,6 +40,8 @@ enum AuditAction {
   APPOINTMENT_CREATED
   APPOINTMENT_CANCELLED
   APPOINTMENT_UPDATED
+  USER_BLOCKED
+  USER_UNBLOCKED
 }
 
 enum DoctorReviewStatus {
@@ -49,13 +51,18 @@ enum DoctorReviewStatus {
 }
 
 model User {
-  id            String   @id
-  name          String
-  email         String   @unique
-  emailVerified Boolean  @default(false)
-  image         String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id             String   @id
+  name           String
+  email          String   @unique
+  emailVerified  Boolean  @default(false)
+  image          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Admin account management
+  isBlocked      Boolean  @default(false)
+  blockedAt      DateTime?
+  blockedReason  String?
 
   sessions            Session[]
   accounts            Account[]
@@ -64,6 +71,7 @@ model User {
   patientAppointments Appointment[]  @relation("PatientAppointments")
   notifications       Notification[]
 
+  @@index([role, isBlocked])
   @@map("user")
 }
 

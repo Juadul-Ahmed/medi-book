@@ -32,6 +32,25 @@ export async function requireAuth() {
     throw new AuthError("Authentication required.", 401);
   }
 
+  // Check the database, not just the session cookie.
+  const databaseUser = await prisma.user.findUnique({
+    where: { id: user.id },
+    select: {
+      isBlocked: true,
+    },
+  });
+
+  if (!databaseUser) {
+    throw new AuthError("Authentication required.", 401);
+  }
+
+  if (databaseUser.isBlocked) {
+    throw new AuthError(
+      "Your account has been blocked. Please contact the administrator.",
+      403,
+    );
+  }
+
   return user;
 }
 
@@ -39,19 +58,22 @@ export async function requireRole(
   allowedRoles: UserRole | UserRole[],
 ) {
   const user = await requireAuth();
+
   const roles = Array.isArray(allowedRoles)
     ? allowedRoles
     : [allowedRoles];
 
-  // Read the role from the database rather than trusting
-  // a client-provided value or an unverified session field.
+  // Read the role from the database, not from the session.
   const databaseUser = await prisma.user.findUnique({
     where: { id: user.id },
     select: { role: true },
   });
 
   if (!databaseUser || !roles.includes(databaseUser.role)) {
-    throw new AuthError("You do not have permission to perform this action.", 403);
+    throw new AuthError(
+      "You do not have permission to perform this action.",
+      403,
+    );
   }
 
   return {
